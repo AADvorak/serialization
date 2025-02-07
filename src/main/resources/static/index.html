@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Deserialization</title>
+</head>
+<body>
+<script src="deserializer/deserializer-base.js"></script>
+<script src="deserializer/primitives-deserializer.js"></script>
+<script src="deserializer/person-deserializer.js"></script>
+<script src="deserializer/embedded-list-deserializer.js"></script>
+<script src="deserializer/embedded-string-map-deserializer.js"></script>
+<script src="api/api.js"></script>
+<script>
+  const loadPrimitives = async () => {
+    const input = await Api.getInput('/api/test/primitives')
+    console.log(input)
+    const person = PrimitivesDeserializer.deserialize(input)
+    console.log(person)
+    document.getElementById('primitives').innerText = JSON.stringify(person)
+  }
+
+  const loadPerson = async () => {
+    const input = await Api.getInput('/api/test/person')
+    console.log(input)
+    const person = PersonDeserializer.deserialize(input)
+    console.log(person)
+    document.getElementById('person').innerText = JSON.stringify(person)
+  }
+
+  const loadEmbeddedList = async () => {
+    const input = await Api.getInput('/api/test/embedded-list')
+    console.log(input)
+    const list = EmbeddedListDeserializer.deserialize(input)
+    console.log(list)
+    document.getElementById('list').innerText = JSON.stringify(list)
+  }
+
+  const loadEmbeddedStringMap = async () => {
+    const input = await Api.getInput('/api/test/embedded-string-map')
+    console.log(input)
+    const map = EmbeddedStringMapDeserializer.deserialize(input)
+    console.log(map)
+    document.getElementById('string-map').innerText = JSON.stringify(map)
+  }
+
+  loadPrimitives().then()
+  loadPerson().then()
+  loadEmbeddedList().then()
+  loadEmbeddedStringMap().then()
+</script>
+<div>Primitives: <span id="primitives"></span></div>
+<div>Person: <span id="person"></span></div>
+<div>List: <span id="list"></span></div>
+<div>String map: <span id="string-map"></span></div>
+</body>
+</html>
