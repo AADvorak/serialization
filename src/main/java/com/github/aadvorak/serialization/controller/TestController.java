@@ -1,9 +1,6 @@
 package com.github.aadvorak.serialization.controller;
 
-import com.github.aadvorak.serialization.dto.EmbeddedListDto;
-import com.github.aadvorak.serialization.dto.EmbeddedStringMapDto;
-import com.github.aadvorak.serialization.dto.PersonDto;
-import com.github.aadvorak.serialization.dto.PrimitivesDto;
+import com.github.aadvorak.serialization.dto.*;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,34 +10,44 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/test")
+@RequestMapping(value = "/api/test", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 public class TestController {
 
-    @GetMapping(value = "/primitives", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @GetMapping("/primitives")
     public byte[] getPrimitives() {
         return createPrimitiveDto()
                 .serialize();
     }
 
-    @GetMapping(value = "/person", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @GetMapping("/person")
     public byte[] getPerson() {
         return createPersonDto()
                 .serialize();
     }
 
-    @GetMapping(value = "/embedded-list", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @GetMapping("/embedded-list")
     public byte[] getList() {
         return new EmbeddedListDto()
                 .setPersons(List.of(createPersonDto(), createPersonDto()))
                 .serialize();
     }
 
-    @GetMapping(value = "/embedded-string-map", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @GetMapping("/embedded-string-map")
     public byte[] getStringMap() {
         return new EmbeddedStringMapDto()
                 .setStringMap(Map.of(
                         "first", createPersonDto(),
                         "second", createPersonDto()
+                ))
+                .serialize();
+    }
+
+    @GetMapping("/embedded-integer-map")
+    public byte[] getIntMap() {
+        return new EmbeddedIntegerMapDto()
+                .setIntegerMap(Map.of(
+                        1, createPersonDto(),
+                        2, createPersonDto()
                 ))
                 .serialize();
     }
