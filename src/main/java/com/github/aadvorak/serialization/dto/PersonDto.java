@@ -21,12 +21,10 @@ public class PersonDto implements CompactSerializable {
     private int age;
 
     @Override
-    public byte[] serialize() {
-        var stream = new ByteArrayOutputStreamWrapper();
+    public void writeToStream(ByteArrayOutputStreamWrapper stream) {
         stream.writeString(firstName);
         stream.writeString(lastName);
         stream.writeInt(age);
-        return stream.toByteArray();
     }
 
     public static PersonDto deserialize(byte[] bytes) {

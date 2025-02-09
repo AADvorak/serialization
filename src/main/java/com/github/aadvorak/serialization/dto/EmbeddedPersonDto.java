@@ -17,10 +17,8 @@ public class EmbeddedPersonDto implements CompactSerializable {
     private PersonDto person;
 
     @Override
-    public byte[] serialize() {
-        var stream = new ByteArrayOutputStreamWrapper();
+    public void writeToStream(ByteArrayOutputStreamWrapper stream) {
         stream.writeSerializable(person);
-        return stream.toByteArray();
     }
 
     public static EmbeddedPersonDto deserialize(byte[] bytes) {

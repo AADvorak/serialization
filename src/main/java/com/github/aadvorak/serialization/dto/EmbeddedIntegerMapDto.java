@@ -19,10 +19,8 @@ public class EmbeddedIntegerMapDto implements CompactSerializable {
     private Map<Integer, PersonDto> integerMap;
 
     @Override
-    public byte[] serialize() {
-        var stream = new ByteArrayOutputStreamWrapper();
+    public void writeToStream(ByteArrayOutputStreamWrapper stream) {
         stream.writeIntegerMapOfSerializable(integerMap);
-        return stream.toByteArray();
     }
 
     public static EmbeddedIntegerMapDto deserialize(byte[] bytes) {

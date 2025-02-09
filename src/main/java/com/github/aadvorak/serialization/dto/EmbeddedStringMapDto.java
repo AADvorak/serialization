@@ -19,10 +19,8 @@ public class EmbeddedStringMapDto implements CompactSerializable {
     private Map<String, PersonDto> stringMap;
 
     @Override
-    public byte[] serialize() {
-        var stream = new ByteArrayOutputStreamWrapper();
+    public void writeToStream(ByteArrayOutputStreamWrapper stream) {
         stream.writeStringMapOfSerializable(stringMap);
-        return stream.toByteArray();
     }
 
     public static EmbeddedStringMapDto deserialize(byte[] bytes) {

@@ -25,14 +25,12 @@ public class PrimitivesDto implements CompactSerializable {
     private double doublePrimitive;
 
     @Override
-    public byte[] serialize() {
-        var stream = new ByteArrayOutputStreamWrapper();
+    public void writeToStream(ByteArrayOutputStreamWrapper stream) {
         stream.writeBoolean(booleanPrimitive);
         stream.writeInt(intPrimitive);
         stream.writeLong(longPrimitive);
         stream.writeFloat(floatPrimitive);
         stream.writeDouble(doublePrimitive);
-        return stream.toByteArray();
     }
 
     public static PrimitivesDto deserialize(byte[] bytes) {

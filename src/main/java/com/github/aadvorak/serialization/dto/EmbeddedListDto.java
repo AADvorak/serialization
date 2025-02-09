@@ -19,10 +19,8 @@ public class EmbeddedListDto implements CompactSerializable {
     private List<PersonDto> persons;
 
     @Override
-    public byte[] serialize() {
-        var stream = new ByteArrayOutputStreamWrapper();
+    public void writeToStream(ByteArrayOutputStreamWrapper stream) {
         stream.writeCollectionOfSerializable(persons);
-        return stream.toByteArray();
     }
 
     public static EmbeddedListDto deserialize(byte[] bytes) {
